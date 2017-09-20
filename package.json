@@ -1,0 +1,23 @@
+{
+  "name": "karma-spec-tally-reporter",
+  "version": "0.0.1",
+  "description": "Karma reporter to show details of test cases executed and matches the count of success, error, and skipped with the total. Shows the details on console and logs the details to a file if there is a mismatch in the count.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpitfireSatya/karma-spec-tally-reporter.git"
+  },
+  "keywords": [
+    "karma-plugin",
+    "karma-reporter"
+  ],
+  "author": "Spitfire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpitfireSatya/karma-spec-tally-reporter/issues"
+  },
+  "homepage": "https://github.com/SpitfireSatya/karma-spec-tally-reporter#readme"
+}
