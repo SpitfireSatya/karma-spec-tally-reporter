@@ -86,17 +86,15 @@
           funkyLogger.color('magenta', (result.totalTime / 100).toFixed() + ' sec.'));
         console.log(funkyLogger.color('cyan', 'Time taken for actual test execution: '),
           funkyLogger.color('magenta', (result.netTime / 100).toFixed() + ' sec.'));
-        
-        if (extendedConfig.bail && tally !== result.total) {
-          console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'))
-          process.exit(1);
-        }
   
       }
   
       this.onRunComplete = (browsers) => {
         browsers.forEach((browser) => {
+
+          const result = this.collection[browser.id].lastResult;
           this.printResult(browser.id);
+
           if (extendedConfig.writeLog) {
             recursiveMkDir(extendedConfig.outDir);
             fs.writeFileSync(__dirname + '/../../' + extendedConfig.outDir + '/' +
@@ -104,6 +102,12 @@
               JSON.stringify(this.collection[browser.id].errors, null, 2), 'utf8');
             console.log(funkyLogger.color('green', 'Error log written to file successfully!\n'))
           }
+
+          if (extendedConfig.bail && ((result.success + result.failed + result.skipped) !== result.total)) {
+            console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'))
+            process.exit(1);
+          }
+
         });
       };
   
