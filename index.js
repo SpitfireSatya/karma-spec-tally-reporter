@@ -100,11 +100,11 @@
             fs.writeFileSync(__dirname + '/../../' + extendedConfig.outDir + '/' +
               extendedConfig.fileName + '.' + extendedConfig.ext,
               JSON.stringify(this.collection[browser.id].errors, null, 2), 'utf8');
-            console.log(funkyLogger.color('green', 'Error log written to file successfully!\n'))
+            console.log(funkyLogger.color('yellow', 'Error log written to file successfully!\n'));
           }
 
           if (extendedConfig.bail && ((result.success + result.failed + result.skipped) !== result.total)) {
-            console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'))
+            console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'));
             process.exit(1);
           }
 
