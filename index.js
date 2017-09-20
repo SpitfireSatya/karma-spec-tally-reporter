@@ -14,7 +14,8 @@
         fileName: 'spec-tally-report',
         ext: 'json',
         outDir: 'report/spec-tally-report',
-        writeLog: false
+        writeLog: false,
+        bail: false
       }
   
       let extendedConfig = Object.assign(defaultConfig, config.specTallyReporter);
@@ -85,6 +86,11 @@
           funkyLogger.color('magenta', (result.totalTime / 100).toFixed() + ' sec.'));
         console.log(funkyLogger.color('cyan', 'Time taken for actual test execution: '),
           funkyLogger.color('magenta', (result.netTime / 100).toFixed() + ' sec.'));
+        
+        if (extendedConfig.bail && tally !== result.total) {
+          console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'))
+          process.exit(1);
+        }
   
       }
   

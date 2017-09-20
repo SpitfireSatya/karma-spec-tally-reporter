@@ -26,12 +26,13 @@ and you're done!!
 
 The karma-spec-tally-reports takes the following config object in karma.conf and the default values are as below
 
-```json
+```js
 specTallyReporter: {
   "console": false, // show error logs on console
   "fileName": "spec-tally-report",
   "ext": "json",
   "outDir": "report/spec-tally-report",
-  "writeLog": false // write logs to given fileName
+  "writeLog": false, // write logs to given fileName
+  "bail": false // invokes process.exit if spec tally mismatch
 }
 ```
