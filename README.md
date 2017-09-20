@@ -1,0 +1,1 @@
+# karma-spec-tally-reporter
