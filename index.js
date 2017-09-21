@@ -21,6 +21,10 @@
       let extendedConfig = Object.assign(defaultConfig, config.specTallyReporter);
   
       baseReporterDecorator(this);
+
+      function logPrefix() {
+        return funkyLogger.color('green', '[spec-tally]: ');
+      }
   
       function recursiveMkDir(folderPath) {
         let folders = folderPath.split('/');
@@ -49,42 +53,42 @@
         const tally = result.success + result.failed + result.skipped;
   
         if (tally !== result.total) {
-          console.log(funkyLogger.color('red', 'Error!!!'));
-          console.log(funkyLogger.color('red', 'All tests did not execute!!!'));
+          console.log(logPrefix() + funkyLogger.color('red', 'Error!!!'));
+          console.log(logPrefix() + funkyLogger.color('red', 'All tests did not execute!!!'));
   
           if (result.disconnected) {
-            console.log(funkyLogger.color('magenta', 'Probable cause for error: '),
-              funkyLogger.color('cyan', 'Browser Disconnected'));
+            console.log(logPrefix() + funkyLogger.color('magenta', 'Probable cause for error: '),
+              funkyLogger.color('cyan', 'Browser Disconnected\n'));
           } else if (result.failed) {
-            console.log(funkyLogger.color('magenta', 'Probable cause for error: '),
-              funkyLogger.color('cyan', 'Error in beforeEach()/afterEach() hook or Injector error'));
+            console.log(logPrefix() + funkyLogger.color('magenta', 'Probable cause for error: '),
+              funkyLogger.color('cyan', 'Error in beforeEach()/afterEach() hook or Injector error\n'));
           } else {
-            console.log(funkyLogger.color('magenta', 'Probable cause for error: '),
-              funkyLogger.color('cyan', 'unknown'));
+            console.log(logPrefix() + funkyLogger.color('magenta', 'Probable cause for error: '),
+              funkyLogger.color('cyan', 'unknown\n'));
           }
   
           if (extendedConfig.console) {
-            console.log(funkyLogger.color('red', '\n' + errors))
+            console.log(logPrefix() + funkyLogger.color('red', 'Error logs:\n' + errors))
           }
   
         } else {
-          console.log(funkyLogger.color('green', 'All tests were executed successfully!!'));
+          console.log(logPrefix() + funkyLogger.color('green', 'All tests were executed successfully!!\n'));
         }
   
-        console.log(funkyLogger.color('white', '\nSpec count summary:'));
-        console.log(funkyLogger.color('green', '\tSuccess: \t\t' + result.success + ' (' +
+        console.log(logPrefix() + funkyLogger.color('white', 'Spec count summary:'));
+        console.log(funkyLogger.color('green', '\t\tSuccess: \t\t' + result.success + ' (' +
           ((result.success * 100) / result.total).toFixed(2) + '%)'));
-        console.log(funkyLogger.color('yellow', '\tFailed: \t\t' + result.failed + ' (' +
+        console.log(funkyLogger.color('yellow', '\t\tFailed: \t\t' + result.failed + ' (' +
           ((result.failed * 100) / result.total).toFixed(2) + '%)'));
-        console.log(funkyLogger.color('cyan', '\tSkipped: \t\t' + result.skipped + ' (' +
+        console.log(funkyLogger.color('cyan', '\t\tSkipped: \t\t' + result.skipped + ' (' +
           ((result.skipped * 100) / result.total).toFixed(2) + '%)'));
-        console.log(funkyLogger.color('red', '\tDid not execute: \t' + (result.total - tally) + ' (' +
+        console.log(funkyLogger.color('red', '\t\tDid not execute: \t' + (result.total - tally) + ' (' +
           (((result.total - tally) * 100) / result.total).toFixed(2) + '%)'));
-        console.log(funkyLogger.color('magenta', '\tTotal: \t\t\t' + result.total + '\n'));
+        console.log(funkyLogger.color('magenta', '\t\tTotal: \t\t\t' + result.total + '\n'));
 
-        console.log(funkyLogger.color('cyan', 'Total time taken including bundling: '),
+        console.log(logPrefix() + funkyLogger.color('cyan', 'Total time taken including bundling: '),
           funkyLogger.color('magenta', (result.totalTime / 100).toFixed() + ' sec.'));
-        console.log(funkyLogger.color('cyan', 'Time taken for actual test execution: '),
+        console.log(logPrefix() + funkyLogger.color('cyan', 'Time taken for actual test execution: '),
           funkyLogger.color('magenta', (result.netTime / 100).toFixed() + ' sec.'));
   
       }
@@ -100,11 +104,11 @@
             fs.writeFileSync(__dirname + '/../../' + extendedConfig.outDir + '/' +
               extendedConfig.fileName + '.' + extendedConfig.ext,
               JSON.stringify(this.collection[browser.id].errors, null, 2), 'utf8');
-            console.log(funkyLogger.color('yellow', 'Error log written to file successfully!\n'));
+            console.log(logPrefix() + funkyLogger.color('yellow', 'Error log written to file successfully!\n'));
           }
 
           if (extendedConfig.bail && ((result.success + result.failed + result.skipped) !== result.total)) {
-            console.log(funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'));
+            console.log(logPrefix() + funkyLogger.color('red', '\nExecuted tests didn\'t add up, bailing...\n'));
             process.exit(1);
           }
 
