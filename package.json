@@ -1,6 +1,6 @@
 {
   "name": "karma-spec-tally-reporter",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Karma reporter to show details of test cases executed and matches the count of success, error, and skipped with the total. Shows the details on console and logs the details to a file if there is a mismatch in the count.",
   "main": "index.js",
   "scripts": {
