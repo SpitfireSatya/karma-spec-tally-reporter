@@ -22,7 +22,7 @@ reporters: ['spec-tally']
 
 and you're done!!
 
-##Config
+## Config
 
 The karma-spec-tally-reports takes the following config object in karma.conf and the default values are as below
 
@@ -36,3 +36,7 @@ specTallyReporter: {
   "bail": false // invokes process.exit if spec tally mismatch
 }
 ```
+
+## Sample Report
+
+![This is what the report looks like](sample.jpg?raw=true "Sample Report")
