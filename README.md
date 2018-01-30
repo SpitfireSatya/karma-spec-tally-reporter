@@ -39,4 +39,4 @@ specTallyReporter: {
 
 ## Sample Report
 
-![This is what the report looks like](sample-output.jpg?raw=true "Sample Report")
+![This is what the report looks like](sample.jpg?raw=true "Sample Report")
