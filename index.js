@@ -13,7 +13,7 @@
       console: false,
       fileName: 'spec-tally-report',
       ext: 'json',
-      outDir: 'report/spec-tally-report',
+      outDir: 'reports/spec-tally-report',
       writeLog: false,
       bail: false
     }
@@ -101,9 +101,19 @@
 
         if (extendedConfig.writeLog && ((result.success + result.failed + result.skipped) !== result.total)) {
           recursiveMkDir(extendedConfig.outDir);
+          const summary = {
+            statistics: {
+              success: result.success,
+              failed: result.failed,
+              skipped: result.skipped,
+              total: result.total,
+              didNotExecute: result.total - (result.success + result.failed + result.skipped)
+            },
+            failures: this.collection[browser.id].errors
+          }
           fs.writeFileSync(__dirname + '/../../' + extendedConfig.outDir + '/' +
             extendedConfig.fileName + '.' + extendedConfig.ext,
-            JSON.stringify(this.collection[browser.id].errors, null, 2), 'utf8');
+            JSON.stringify(summary, null, 2), 'utf8');
           console.log(logPrefix() + funkyLogger.color('yellow', 'Error log written to file successfully!\n'));
         }
 
