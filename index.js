@@ -99,7 +99,7 @@
         const result = this.collection[browser.id].lastResult;
         this.printResult(browser.id);
 
-        if (extendedConfig.writeLog && ((result.success + result.failed + result.skipped) !== result.total)) {
+        if (extendedConfig.writeLog) {
           recursiveMkDir(extendedConfig.outDir);
           const summary = {
             statistics: {
